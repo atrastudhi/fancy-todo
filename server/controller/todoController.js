@@ -12,8 +12,12 @@ module.exports = {
       user: req.decoded._id
     })
     .then(async (todo) => {
-      await helper.calendarInsert(req.decoded.email, req.body)
-      res.status(201).json(todo)
+      if(req.decoded.method === 'google') {
+        await helper.calendarInsert(req.decoded.email, req.body)
+        res.status(201).json(todo)
+      } else {
+        res.status(201).json(todo)
+      }
     })
     .catch(err => {
       console.log(err)
@@ -46,7 +50,8 @@ module.exports = {
       } else {
         let query = { title, description, due_date, status } = req.body
         return Todo.findByIdAndUpdate(req.params.id, query, {
-          new: true
+          new: true,
+          runValidators: true
         })
       }
     })

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <title>Todo-Fancy</title>
+  <!-- GOOGLE BUTTON -->
+  <style type="text/css">
+    #customBtn {
+      display: inline-block;
+      background: white;
+      color: #444;
+      width: 190px;
+      border-radius: 5px;
+      border: thin solid #888;
+      box-shadow: 1px 1px 1px grey;
+      white-space: nowrap;
+    }
+    #customBtn:hover {
+      cursor: pointer;
+    }
+    span.label {
+      font-family: serif;
+      font-weight: normal;
+    }
+    span.icon {
+      background: url('http://pluspng.com/img-png/google-logo-png-open-2000.png') transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+    }
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 42px;
+      padding-right: 42px;
+      font-size: 14px;
+      font-weight: bold;
+      /* Use the Roboto font that is loaded in the <head> */
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Todo-Fancy</a>
+  
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link outside" href="#" data-toggle="modal" data-target="#modalSignup">Signup</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link outside" href="#" data-toggle="modal" data-target="#signinModal">Signin</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link inside" href="#" style="display:none" id="createTodo" data-toggle="modal" data-target="#createProjectModal">Create-Project</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link inside" href="#" style="display:none" id="createTodo" data-toggle="modal" data-target="#createTodoModal">Create-Todo</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link inside" href="#" style="display:none" id="logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-body" id="exampleModalLabel">Create Project</h5>
+          <button type="button" class="close" id="closeProject" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form id="projectForm">
+                <div class="form-group">
+                  <label class="text-body">Project Name:</label>
+                  <input type="text" class="form-control" id="titleProject" placeholder="Project Name">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE TODO MODAL -->
+  <div class="modal fade" id="createTodoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-body" id="exampleModalLabel">Create Todo</h5>
+          <button type="button" class="close" id="closeCreate" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form id="createForm">
+                <div class="form-group">
+                  <label class="text-body">Title:</label>
+                  <input type="text" class="form-control" id="titleCreate" placeholder="Title">
+                </div>
+                <div class="form-group">
+                  <label class="text-body">Description:</label>
+                  <input type="text" class="form-control" id="descriptionCreate" placeholder="Description">
+                </div>
+                <div class="form-group">
+                  <label class="text-body">Status:</label>
+                  <select class="custom-select" id="statusCreate">
+                    <option value="false">Undone</option>
+                    <option value="true">Done</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="text-body">Due Date:</label><br>
+                  <input type="date" id="dateCreate" min="2019-01-01" max="2020-01-01" id="dateCreate">
+                </div>
+                <div class="text-center">
+                  <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL SIGNIN -->
+  <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Signin</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeSignin">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="alert alert-dismissible alert-danger" id="alertSignin" style="display:none">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Oh snap!</strong>
+              <div id="textSignin"></div>
+            </div>
+          <div class="container">
+            <form id="signinForm">
+                <div class="form-group">
+                  <label for="emailSignin">Email address</label>
+                  <input type="email" class="form-control" id="emailSignin" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="passwordSignin">Password</label>
+                  <input type="password" class="form-control" id="passwordSignin" placeholder="Password">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+              <div class="text-center m-2">
+                <small>OR</small>
+              </div>
+
+              <!-- GOOGLE SIGN -->
+              <div id="gSignin" class="text-center">
+                <div id="customBtn" class="customGPlusSignIn">
+                  <span class="icon"></span>
+                  <span class="buttonText">Google</span>
+                </div>
+              </div>
+              
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- MODAL SIGNUP -->
+  <div class="modal fade" id="modalSignup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Signup</h5>
+          <button type="button" class="close" id="closeSignup" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="alert alert-dismissible alert-danger" id="alertSignup" style="display:none">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Oh snap!</strong>
+              <div id="textSignup"></div>
+            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                  <label for="emailSignup">Email address</label>
+                  <input type="email" class="form-control" id="emailSignup" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="passwordSignup">Password</label>
+                  <input type="password" class="form-control" id="passwordSignup" placeholder="Password">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD TODO -->
+  <div class="container inside">
+    <div class="row">
+      <!-- LIST TODO -->
+      <div class="card text-white bg-primary mb-3 col-sm m-5" style="max-width: 20rem;">
+        <div class="card-header m-3"><h1>Todo's</h1></div>
+        <div id="todoList" class="m-3"></div>
+      </div>
+      <!-- DETAIL TODO -->
+      <div class="card text-white bg-primary mb-3 col-sm m-5" style="max-width: 20rem;">
+          <div class="card-header"><h1>Detail's</h1></div>
+        <div class="card-body" id="detailTodo"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD PROJECT -->
+  <div class="container inside">
+    <div class="row">
+      <!-- LIST PROJECT -->
+      <div class="card text-white bg-primary mb-3 col-sm m-3" style="max-width: 20rem;">
+        <div class="card-header m-3"><h1>Project</h1></div>
+        <div id="projectList" class="m-3"></div>
+      </div>
+      <!-- MEMBER PROJECT -->
+      <div class="card text-white bg-primary mb-3 col-sm m-3" style="max-width: 20rem;">
+        <div class="card-header"><h1>Member's</h1></div>
+        <div class="alert alert-dismissible alert-danger" id="alertInvite" style="display:none">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Oh snap!</strong>
+          <div id="textInvite"></div>
+        </div>
+        <div class="form-group text-center">
+          <input type="email" class="form-control" placeholder="Invite Member Email" id="inviteMember" disabled>
+        </div>
+        <div class="card-body" id="memberProject"></div>
+      </div>
+      <!-- PROJECT TODO -->
+      <div class="card text-white bg-primary mb-3 col-sm m-3" style="max-width: 20rem;">
+        <div class="card-header"><h1>Project Todo's</h1></div>
+        <div class="form-group text-center">
+          <input type="text" class="form-control" placeholder="Create Todo's" id="createProjectTodo" disabled>
+        </div>
+        <div class="card-body" id="projectTodo"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/script.js"></script>
+</body>
+</html>
