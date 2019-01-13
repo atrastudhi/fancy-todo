@@ -26,7 +26,7 @@ $('#signupForm').submit(async function (event) {
   let email = $('#emailSignup').val()
   let password = $('#passwordSignup').val()
   try {
-    let { data } = await $.post('http://localhost:3000/user', {
+    let { data } = await $.post('http://35.224.73.173/user', {
       email: email,
       password: password
     })
@@ -45,7 +45,7 @@ $('#signinForm').submit(async function (event) {
   let email = $('#emailSignin').val()
   let password = $('#passwordSignin').val()
   try {
-    let { token } = await $.post('http://localhost:3000/user/login', {
+    let { token } = await $.post('http://35.224.73.173/user/login', {
       email: email,
       password: password
     })
@@ -71,7 +71,7 @@ async function setTodo () {
   try {
     const todos = await $.ajax({
       method: 'GET',
-      url: 'http://localhost:3000/todo',
+      url: 'http://35.224.73.173/todo',
       headers: {
         'token': localStorage.getItem('token')
       }
@@ -94,7 +94,7 @@ const deleteTodo = async (id) => {
   try {
     const remove = await $.ajax({
       method: 'DELETE',
-      url: `http://localhost:3000/todo/${id}`,
+      url: `http://35.224.73.173/todo/${id}`,
       headers: {
         'token': localStorage.getItem('token')
       }
@@ -173,7 +173,7 @@ async function updateTodo (id) {
   try {
     const updated = await $.ajax({
       method: 'PUT',
-      url: `http://localhost:3000/todo/${id}`,
+      url: `http://35.224.73.173/todo/${id}`,
       data: {
         title: title,
         description: description,
@@ -202,7 +202,7 @@ $('#createForm').submit(async (event) => {
   try {
     const created = await $.ajax({
       method: 'POST',
-      url: 'http://localhost:3000/todo/',
+      url: 'http://35.224.73.173/todo/',
       data: {
         title: title,
         description: description,
@@ -226,7 +226,7 @@ $('#projectForm').submit(async (event) => {
   try {
     const project = await $.ajax({
       method: 'POST',
-      url: 'http://localhost:3000/project',
+      url: 'http://35.224.73.173/project',
       data: {
         name: title
       },
@@ -244,7 +244,7 @@ $('#projectForm').submit(async (event) => {
 async function setProject () {
   const projects = await $.ajax({
     method: 'GET',
-    url: 'http://localhost:3000/project/',
+    url: 'http://35.224.73.173/project/',
     headers: {
       token: localStorage.getItem('token')
     }
@@ -288,7 +288,7 @@ $('#inviteMember').keypress(async (e) => {
     try {
       const invited = await $.ajax({
         method: 'PUT',
-        url: `http://localhost:3000/project/invite/${projectId}`,
+        url: `http://35.224.73.173/project/invite/${projectId}`,
         data: {
           email: email
         },
@@ -315,7 +315,7 @@ $('#createProjectTodo').keypress(async (e) => {
     try {
       const newTodo = $.ajax({
         method: 'PUT',
-        url: `http://localhost:3000/project/todo/${projectId}`,
+        url: `http://35.224.73.173/project/todo/${projectId}`,
         data: {
           todo: todo
         },
